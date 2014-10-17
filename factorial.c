@@ -5,6 +5,8 @@ int factorial(int);
 int memoFactorial(int);
 int fact(int,int[]);
 
+//attempting c implementation of memoized factorial,
+// sort of as described by Crockford for javascript
 int main(int argct, char** fromInput)
 {
 	int from = atoi(fromInput[1]);
