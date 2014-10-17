@@ -29,7 +29,8 @@ GLOBAL.memoize = (function(){
   
   var fibonacci = function(fib){
   	if(fib === 0) {return 0;}
-  	return fib + fibonacci(fib -1);
+	if(fib === 1 || fib === 2) {return 1;}
+  	return fibonacci(fib - 1) + fibonacci(fib -2);
   };
 
   return {
