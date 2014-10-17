@@ -13,28 +13,38 @@ GLOBAL.memoize = (function(){
   
   var memoized_fibonacci = function(fib){
   	var memo = [0,1,1];
+	var calls = 0;
   
   	var fib_alt = function(fib){
+		calls++;
   		if(!(memo[fib] === null || memo[fib] === undefined)){
   			return memo[fib];
   		}
   		if(memo[fib - 1] === null || memo[fib - 1] === undefined){
   			memo[fib -1] = fib_alt(fib - 1);
-			console.log(memo[fib-1]);
   		}
   		return fib_alt(fib - 1) + memo[fib-2];
   	};
-  	return fib_alt(fib);
+  	var result = fib_alt(fib);
+	console.log("calls " + calls);
+	return result;
   };
   
-  var fibonacci = function(fib){
-  	if(fib === 0) {return 0;}
-	if(fib === 1 || fib === 2) {return 1;}
-  	return fibonacci(fib - 1) + fibonacci(fib -2);
+  var fib_call_wrapper = function(fib){
+    var calls = 0;
+    var fibonacci = function(fib){
+	    calls++;
+    	if(fib === 0) {return 0;}
+          if(fib === 1 || fib === 2) {return 1;}
+    	return fibonacci(fib - 1) + fibonacci(fib -2);
+    };
+    var result = fibonacci(fib);
+    console.log('calls: ' + calls);
+    return result;
   };
 
   return {
-   fibonacci : fibonacci,
+   fibonacci : fib_call_wrapper,
    memoized_fibonacci : memoized_fibonacci
   };
 
